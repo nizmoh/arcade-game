@@ -1,3 +1,18 @@
 body {
     text-align: center;
 }
+
+.modal {
+    border: 1px solid #ccc;
+    background: #fff;
+    width: 400px;
+    height: 100px;
+    padding: 40px;
+    position: absolute;
+    top: calc(50% - 180px);
+    left: calc(50% - 241px);
+}
+
+.hide {
+    display: none;
+}

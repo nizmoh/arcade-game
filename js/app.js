@@ -1,12 +1,8 @@
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.x = 0;
-    this.y = 0;
+var Enemy = function(x, y, speed) {
+    this.x = x;
+    this.y = y + 55;
+    this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
     this.step = 101;
     this.boundary = this.step * 5;
@@ -21,7 +17,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 
     if (this.x < this.boundary) {
-      this.x += 200 * dt;
+      this.x += this.speed * dt;
     }
     else {
         this.x = this.resetPos;
@@ -79,19 +75,19 @@ document.addEventListener('keyup', function(e) {
 
 class Hero {
   constructor(){
-    this.Sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-boy.png';
     this.step = 101;
     this.jump = 83;
     this.startX = this.step * 2;
-    this.startY = this.jump * 5;
+    this.startY = (this.jump * 4) + 55;
     this.x = this.startX;
     this.y = this.startY;
-
+    this.victory = false;
   }
 
   // draw heor on current x and y position
   render() {
-    ctx.drawImage(Resources.get(this.Sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 
   handleInput(input) {
@@ -119,9 +115,36 @@ class Hero {
     }
   }
 
+  update() {
+    for(let enemy of allEnemies) {
+      if (
+        this.y === enemy.y &&
+        (enemy.x + enemy.step/2 > this.x &&
+          enemy.x < this.x + this.step/2 )
+        ){
+        this.reset();
+      }
+    }
+
+    if(this.y === 55) {
+      this.victory = true;
+    }
+  }
+
+  reset() {
+    this.y = this.startY;
+    this.x = this.startX;
+  }
+
+}
+
+function bugSpeed() {
+  return Math.floor(400 + Math.random()*(400 + 1 - 500))
 }
 
 const player = new Hero();
-const bug1 = new Enemy();
+const bug1 = new Enemy(-101, 0, bugSpeed());
+const bug2 = new Enemy(-101, 83, bugSpeed());
+const bug3 = new Enemy((-101 * 2.5), (83 * 2), bugSpeed());
 const allEnemies = [];
-allEnemies.push(bug1);
+allEnemies.push(bug1, bug2, bug3);
