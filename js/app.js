@@ -3,10 +3,10 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y + 55;
     this.speed = speed;
-    this.sprite = 'images/enemy-bug.png';
-    this.step = 101;
-    this.boundary = this.step * 5;
-    this.resetPos = -this.step;
+    this.SPRITE = 'images/enemy-bug.png';
+    this.STEP = 101;
+    this.boundary = this.STEP * 5;
+    this.resetPos = -this.STEP;
 };
 
 // Update the enemy's position, required method for game
@@ -26,7 +26,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.SPRITE), this.x, this.y);
 };
 
 // Now write your own player class
@@ -60,7 +60,7 @@ document.addEventListener('keyup', function(e) {
     // properties
         // x position
         // y position
-        //  sprite image
+        //  SPRITE image
     // methods
       // check collision
         // did player x and y collide with enemy?
@@ -74,72 +74,72 @@ document.addEventListener('keyup', function(e) {
         // set x and y to starting x and y
 
 class Hero {
-  constructor(){
-    this.sprite = 'images/char-boy.png';
-    this.step = 101;
-    this.jump = 83;
-    this.startX = this.step * 2;
-    this.startY = (this.jump * 4) + 55;
-    this.x = this.startX;
-    this.y = this.startY;
-    this.victory = false;
+    constructor(){
+        this.SPRITE = 'images/char-boy.png';
+        this.STEP = 101;
+        this.JUMP = 83;
+        this.STARTX = this.STEP * 2;
+        this.STARTY = (this.JUMP * 4) + 55;
+        this.x = this.STARTX;
+        this.y = this.STARTY;
+        this.victory = false;
   }
 
   // draw heor on current x and y position
-  render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  }
-
-  handleInput(input) {
-    switch(input) {
-      case 'left':
-        if (this.x > 0){
-          this.x -= this.step;
-        }
-        break;
-      case 'up':
-        if (this.y > this.jump){
-          this.y -= this.jump;
-        }
-        break;
-      case 'right':
-        if (this.x < this.step * 4) {
-          this.x += this.step;
-        }
-        break;
-      case 'down':
-        if (this.y < this.jump * 4){
-          this.y += this.jump;
-        }
-        break;
-    }
-  }
-
-  update() {
-    for(let enemy of allEnemies) {
-      if (
-        this.y === enemy.y &&
-        (enemy.x + enemy.step/2 > this.x &&
-          enemy.x < this.x + this.step/2 )
-        ){
-        this.reset();
-      }
+    render() {
+        ctx.drawImage(Resources.get(this.SPRITE), this.x, this.y);
     }
 
-    if(this.y === 55) {
-      this.victory = true;
+    handleInput(input) {
+        switch(input) {
+            case 'left':
+                if (this.x > 0){
+                    this.x -= this.STEP;
+                }
+            break;
+            case 'up':
+                if (this.y > this.JUMP){
+                    this.y -= this.JUMP;
+                }
+            break;
+            case 'right':
+                if (this.x < this.STEP * 4) {
+                    this.x += this.STEP;
+                }
+            break;
+            case 'down':
+                if (this.y < this.JUMP * 4){
+                    this.y += this.JUMP;
+                }
+            break;
+        }
     }
-  }
 
-  reset() {
-    this.y = this.startY;
-    this.x = this.startX;
-  }
+    update() {
+        for(let enemy of allEnemies) {
+            if (
+                this.y === enemy.y &&
+                (enemy.x + enemy.STEP/2 > this.x &&
+                    enemy.x < this.x + this.STEP/2 )
+                ){
+                    this.reset();
+                }
+            }
+
+            if(this.y === 55) {
+                this.victory = true;
+            }
+    }
+
+    reset() {
+        this.y = this.STARTY;
+        this.x = this.STARTX;
+    }
 
 }
 
 function bugSpeed() {
-  return Math.floor(400 + Math.random()*(400 + 1 - 500))
+    return Math.floor(400 + Math.random()*(400 + 1 - 500))
 }
 
 const player = new Hero();
