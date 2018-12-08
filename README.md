@@ -7,13 +7,19 @@
 
 ## Instructions
 
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
+### Running the game
+1. Close or download the repository
+2. Navigate to the project folder
+3. Open index.html in a web browser
 
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
+### Dependency
+Please note that this game uses ES6 syntax which required a modern web browser such as Chrome, Firefox, Safari or Edge
 
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
+#### Playing the Game
+The Objective of the game is to cross the street without being bitten by the bugs. Once you successfully cross the street, you will win.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+### Controlling the Player
+You can control the movement of you player by using the up, down, left and right arrow keys. Note that the bugs run scross at varying speeds.
 
 ## Contributing
 
