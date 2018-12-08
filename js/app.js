@@ -3,8 +3,8 @@ class Character {
     constructor(sprite, x, y) {
         this.STEP = 101;
         this.JUMP = 83;
-        this.STARTX = this.STEP * 2;
-        this.STARTY = (this.JUMP * 4) + 55;
+        this.START_X = this.STEP * 2;
+        this.START_Y = (this.JUMP * 4) + 55;
         if(sprite === 'bug') {
             this.SPRITE = 'images/enemy-bug.png'
             this.y = y + 55
@@ -12,8 +12,8 @@ class Character {
         else {
             this.SPRITE = 'images/char-boy.png'
             this.y = y;
-            this.x = this.STARTX;
-            this.y = this.STARTY;
+            this.x = this.START_X;
+            this.y = this.START_Y;
         }
     }
 }
@@ -99,8 +99,8 @@ class Hero extends Character {
     }
 
     reset() {
-        this.y = this.STARTY;
-        this.x = this.STARTX;
+        this.y = this.START_Y;
+        this.x = this.START_X;
     }
 };
 
