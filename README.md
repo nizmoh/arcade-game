@@ -13,7 +13,7 @@
 3. Open index.html in a web browser
 
 ### Dependency
-Please note that this game uses ES6 syntax which required a modern web browser such as Chrome, Firefox, Safari or Edge
+Please note that this game uses ES6 syntax which required a modern web browser such as Chrome, Firefox, Safari or Edge.
 
 #### Playing the Game
 The Objective of the game is to cross the street without being bitten by the bugs. Once you successfully cross the street, you will win.
