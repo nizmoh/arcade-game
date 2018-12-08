@@ -1,87 +1,53 @@
-// Enemies our player must avoid
-var Enemy = function(x, y, speed) {
-    this.x = x;
-    this.y = y + 55;
-    this.speed = speed;
-    this.SPRITE = 'images/enemy-bug.png';
-    this.STEP = 101;
-    this.boundary = this.STEP * 5;
-    this.resetPos = -this.STEP;
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
-    if (this.x < this.boundary) {
-      this.x += this.speed * dt;
-    }
-    else {
-        this.x = this.resetPos;
-    }
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.SPRITE), this.x, this.y);
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
-
-    player.handleInput(allowedKeys[e.keyCode]);
-});
-
-
-
-// hero class
-  // constructor
-    // properties
-        // x position
-        // y position
-        //  SPRITE image
-    // methods
-      // check collision
-        // did player x and y collide with enemy?
-      // check win
-        // did player x and y reach final tile?
-      // render
-        // draw player sptite on current x and y coords position
-      // handle keyboard input
-        // update players x and y properties according to input
-      // reset hero
-        // set x and y to starting x and y
-
-class Hero {
-    constructor(){
-        this.SPRITE = 'images/char-boy.png';
+// Character super class
+class Character {
+    constructor(sprite, x, y) {
         this.STEP = 101;
         this.JUMP = 83;
         this.STARTX = this.STEP * 2;
         this.STARTY = (this.JUMP * 4) + 55;
-        this.x = this.STARTX;
-        this.y = this.STARTY;
+        if(sprite === 'bug') {
+            this.SPRITE = 'images/enemy-bug.png'
+            this.y = y + 55
+        }
+        else {
+            this.SPRITE = 'images/char-boy.png'
+            this.y = y;
+            this.x = this.STARTX;
+            this.y = this.STARTY;
+        }
+    }
+}
+
+// Enemies our player must avoid
+class Enemy extends Character{
+    constructor(sprite, x, y, speed){
+        super(sprite, x, y)
+        this.speed = speed;
+        this.STEP = 101;
+        this.boundary = this.STEP * 5;
+        this.resetPos = -this.STEP;
+    }
+
+    // Update the enemy's position, required method for game
+    update(dt) {
+        if (this.x < this.boundary) {
+          this.x += this.speed * dt;
+        }
+        else {
+            this.x = this.resetPos;
+        }
+    };
+
+    // Draw the enemy on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.SPRITE), this.x, this.y);
+    };
+};
+
+// hero class
+class Hero extends Character {
+    constructor(sprite, x, y){
+        super(sprite, x, y);
         this.victory = false;
   }
 
@@ -90,6 +56,7 @@ class Hero {
         ctx.drawImage(Resources.get(this.SPRITE), this.x, this.y);
     }
 
+    // handle keyboard input
     handleInput(input) {
         switch(input) {
             case 'left':
@@ -135,16 +102,33 @@ class Hero {
         this.y = this.STARTY;
         this.x = this.STARTX;
     }
+};
 
-}
+
+// This listens for key presses and sends the keys to your
+document.addEventListener('keyup', function(e) {
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
+
+    player.handleInput(allowedKeys[e.keyCode]);
+});
+
+
 
 function bugSpeed() {
     return Math.floor(400 + Math.random()*(400 + 1 - 500))
 }
 
-const player = new Hero();
-const bug1 = new Enemy(-101, 0, bugSpeed());
-const bug2 = new Enemy(-101, 83, bugSpeed());
-const bug3 = new Enemy((-101 * 2.5), (83 * 2), bugSpeed());
+const player = new Hero('boy');
+const bug1 = new Enemy('bug', -101, 0, bugSpeed());
+const bug2 = new Enemy('bug', -101, 83, bugSpeed());
+const bug3 = new Enemy('bug', (-101 * 2.5), (83 * 2), bugSpeed());
 const allEnemies = [];
 allEnemies.push(bug1, bug2, bug3);
+
+console.log(bug1);
+console.log(player);
